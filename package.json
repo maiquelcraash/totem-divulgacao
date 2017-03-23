@@ -1,0 +1,23 @@
+{
+  "name": "totem-divulgacao",
+  "version": "1.0.0",
+  "description": "Trabalho de Sistemas Embarcados - UNIVATES - 2017A",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maiquelcraash/totem-divulgacao.git"
+  },
+  "author": "Maiquel Ludwig e Rodrigo Pritsh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maiquelcraash/totem-divulgacao/issues"
+  },
+  "homepage": "https://github.com/maiquelcraash/totem-divulgacao#readme",
+  "dependencies": {
+    "express": "3.x",
+    "pg": "^6.1.5"
+  }
+}

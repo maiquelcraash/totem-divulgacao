@@ -13,3 +13,24 @@ Cronograma:
 12/05 -> Entrega do item 2
 02/06 -> Entrega do item 3
 30/06 -> Entrega do item 4
+
+
+# Instruções para rodar o projeto:
+1. Precisa ter o Node instalado (instalar a versão mais recente).
+2. Pelo terminal/cmd, na pasta do projeto, rodar o comando:
+
+    $ npm install
+
+    Isso irá instalar todas as dependências listadas no package.json
+3. Rodar subir o servidor com o node:
+
+    $ node backend/totemBackend.js
+
+
+# Documentação TOP
+
+ESP8266: HTTP GET Requests -> https://techtutorialsx.wordpress.com/2016/07/17/esp8266-http-get-requests/
+
+ESP8266: HTTP POST Requests -> https://techtutorialsx.wordpress.com/2016/07/21/esp8266-post-requests/
+
+Node + PostGrees -> http://mherman.org/blog/2015/02/12/postgresql-and-nodejs/#.WNMHJRiZP-k
