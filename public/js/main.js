@@ -2,12 +2,15 @@
  * Created by maiquel on 22/03/17.
  */
 
-let host = "http://localhost:8082/totems",
-	body = document.getElementsByTagName("body")[0];
+let url = window.location.href,							//get the server link
+	totemList = document.querySelector('#totem-situation .totem-list');
 
 init();
 
 function init() {
+	let arr = url.split("/"),
+		host = arr[0] + "//" + arr[2] + "/totems";		//add totems endpoint to server link
+
 	let xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", host, true); // false for synchronous request
 
@@ -18,18 +21,18 @@ function init() {
 		totems.forEach((totem) => {
 			let totemDiv = document.createElement("div");
 
+			totemDiv.className = "totem-list-item";
 			totemDiv.innerText = totem.description_id;
-			totemDiv.style.color = "white";
-			totemDiv.style.fontWeight = "bold";
+
 
 			if (totem.situation === "1") {
-				totemDiv.style.backgroundColor = "green";
+				totemDiv.classList.remove("empty");
 			}
 			else {
-				totemDiv.style.backgroundColor = "red";
+				totemDiv.classList.add("empty");
 			}
 
-			body.appendChild(totemDiv);
+			totemList.appendChild(totemDiv);
 		})
 	};
 

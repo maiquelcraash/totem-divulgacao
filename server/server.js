@@ -1,18 +1,18 @@
 /* #### Configure EXPRESS #### */
 const pg = require('pg'),
 	app = require('./../app'),
-	port = 8082,
 	arquivo = require('fs'),					//módulo para manipular arquivos
-	path = require('path');
+	path = require('path'),
+	properties = require('./properties');
 
 
 /* #### Configure POSTGRES #### */
 const config = {
-	user: 'maiquel',
-	database: 'totem',
-	password: 'craash1',
-	host: 'localhost',
-	port: 5432,
+	user: properties.DB_USER,
+	database: properties.DB_DATABASE,
+	password: properties.DB_PASSWORD,
+	host: properties.DB_HOST,
+	port: properties.DB_PORT,
 	max: 10,
 	idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
 };
@@ -42,7 +42,7 @@ let totems = [
 ];
 
 /* Manage Server */
-app.listen(process.env.PORT || port);
+app.listen(process.env.PORT || properties.SERVER_PORT);
 
 app.get('/', (req, res) => {
 	res.sendfile('public/index.html');
