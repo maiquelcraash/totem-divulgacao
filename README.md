@@ -8,11 +8,18 @@ determinado totem
 3. Permitir o cadastro de novos totems (via MAC) e criar protótipo completo totem
 4. Permitir geração de análise por meio de gráficos.
 
+
 Cronograma:
+
 24/03 -> Entrega do item 1
+
 12/05 -> Entrega do item 2
+
 02/06 -> Entrega do item 3
+
 30/06 -> Entrega do item 4
+
+
 
 
 # Instruções para rodar o projeto:
@@ -24,7 +31,8 @@ Cronograma:
     Isso irá instalar todas as dependências listadas no package.json
 3. Rodar subir o servidor com o node:
 
-    $ node backend/totemBackend.js
+    $ node server/server.js
+
 
 
 # Documentação TOP
@@ -33,4 +41,6 @@ ESP8266: HTTP GET Requests -> https://techtutorialsx.wordpress.com/2016/07/17/es
 
 ESP8266: HTTP POST Requests -> https://techtutorialsx.wordpress.com/2016/07/21/esp8266-post-requests/
 
-Node + PostGrees -> http://mherman.org/blog/2015/02/12/postgresql-and-nodejs/#.WNMHJRiZP-k
+Node + PostGrees -> https://github.com/brianc/node-postgres
+
+Node REST Design Pattern -> https://hackernoon.com/restful-api-design-with-node-js-26ccf66eab09#.3e92h0mt2

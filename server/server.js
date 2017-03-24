@@ -1,10 +1,9 @@
 /* #### Configure EXPRESS #### */
-const express = require('express'),
-	pg = require('pg'),
-	app = express();
-
-app.use(express.static(__dirname + '/public'));
-app.use(express.bodyParser());
+const pg = require('pg'),
+	app = require('./../app'),
+	port = 8082,
+	arquivo = require('fs'),					//módulo para manipular arquivos
+	path = require('path');
 
 
 /* #### Configure POSTGRES #### */
@@ -43,8 +42,11 @@ let totems = [
 ];
 
 /* Manage Server */
-app.listen(process.env.PORT || 8082);
+app.listen(process.env.PORT || port);
 
+app.get('/', (req, res) => {
+	res.sendfile('public/index.html');
+});
 
 app.all('*', (req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
