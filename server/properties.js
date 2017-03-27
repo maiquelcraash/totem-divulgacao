@@ -6,7 +6,7 @@
 	"use strict";
 
 	/* Server Settings */
-	exports.SERVER_PORT = 9999;
+	exports.SERVER_PORT = 8082;
 
 	/* DataBase Settings (PostGres Only) */
 	exports.DB_HOST = 'localhost';

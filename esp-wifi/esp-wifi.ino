@@ -17,12 +17,26 @@
 ESP8266WiFiMulti WiFiMulti;
 
 const char *totemID = "Totem 2 - Shopping Lajeado";
-const char *ssid = "Maiquel 2.4GHZ";
-const char *password = "nadafeito4321";
-const char *serverURL = "http://192.168.0.104:8082/contatos";
+const char *ssid = "iPhone-ml";
+const char *password = "12345678";
+const char *serverURL = "http://172.20.10.2:8082/contatos";
 
 char postBuffer[1024];
 boolean situation = 1;
+
+boolean getSituation() {
+  int pinoSensor = A0;
+  int valorSensor = 0;
+ 
+  valorSensor = analogRead(pinoSensor);
+  //int valorCorrigido = (valorSensor * 5) / 1024;
+  if( valorSensor > 100) {
+      return true;
+  }
+  else {
+      return false;   
+  }
+}
 
 
 void setup() {
@@ -53,7 +67,7 @@ void loop() {
     strcat(postBuffer, totemID);
     strcat(postBuffer, "&situation=");
 
-    if (situation) {
+    if (getSituation()) {
         strcat(postBuffer, "1");
     }
     else {
@@ -100,7 +114,7 @@ void loop() {
     }
 
     else {
-        USE_SERIAL.print("WI-FI ERROR! Check the ssid and pass parameters");
+        USE_SERIAL.print("WI-FI ERROR! Check the ssid and pass parameters\n");
     }
 
     delay(5000);

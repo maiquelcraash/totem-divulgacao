@@ -31,12 +31,22 @@ query.on('end', (result) => {
 let totems = [
 	{
 		code: 2,
-		description_id: "Totem 2 - Shopping Lajeado",
+		description_id: "Totem 1 - Shopping Lajeado",
 		situation: "0"
 	},
 	{
 		code: 1,
-		description_id: "Totem 1 - HBB",
+		description_id: "Totem 2 - HBB",
+		situation: "0"
+	},
+	{
+		code: 2,
+		description_id: "Totem 3 - Praça do Chafariz",
+		situation: "0"
+	},
+	{
+		code: 1,
+		description_id: "Totem 4 - SESC",
 		situation: "0"
 	}
 ];

@@ -1,3 +1,4 @@
+# Resumo:
 Projeto Totem de Divulgação Integrantes: Maiquel Ludwig e Rodrigo Pritsch
 
 Resumo: O projeto resume-se em promover o controle de Totems remotamente via interface Web. Os totems servirão para distribuir panfletos em pontos específicos (com acesso wi-fi) para a população em geral. Utilizaremos a IoT para:
@@ -11,13 +12,13 @@ determinado totem
 
 Cronograma:
 
-24/03 -> Entrega do item 1
+24/03/2017 -> Entrega do item 1
 
-12/05 -> Entrega do item 2
+12/05/2017 -> Entrega do item 2
 
-02/06 -> Entrega do item 3
+02/06/2017 -> Entrega do item 3
 
-30/06 -> Entrega do item 4
+30/06/2017 -> Entrega do item 4
 
 
 
@@ -35,7 +36,7 @@ Cronograma:
 
 
 
-# Documentação TOP
+# Documentação Complementar:
 
 ESP8266: HTTP GET Requests -> https://techtutorialsx.wordpress.com/2016/07/17/esp8266-http-get-requests/
 
