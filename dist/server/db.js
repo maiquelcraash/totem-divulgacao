@@ -3,8 +3,8 @@
  */
 
 const pg = require('pg'),
-	properties = require('./properties'),
-	Totem = require('./entities/totem');
+      properties = require('./properties'),
+      Totem = require('./entities/totem');
 
 /* #### Configure POSTGRES #### */
 const config = {
@@ -14,8 +14,7 @@ const config = {
 	host: properties.DB_HOST,
 	port: properties.DB_PORT,
 	max: 10,
-	idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-};
+	idleTimeoutMillis: 30000 };
 
 const pool = new pg.Pool(config);
 
@@ -26,7 +25,7 @@ let totemsManager = () => {
 
 		executeQuery('SELECT * FROM totems', (err, res) => {
 			if (!err) {
-				totems = res.map((row) => {
+				totems = res.map(row => {
 					return Totem.newTotem(row.code, row.description_id, row.situation);
 				});
 			}
@@ -37,7 +36,7 @@ let totemsManager = () => {
 
 	return {
 		getTotems: getTotems
-	}
+	};
 };
 
 function executeQuery(query, callback) {
@@ -51,3 +50,4 @@ function executeQuery(query, callback) {
 }
 
 module.exports = totemsManager();
+//# sourceMappingURL=db.js.map

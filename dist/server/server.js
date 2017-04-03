@@ -1,13 +1,12 @@
 /* #### Configure EXPRESS #### */
 const app = require('./../app'),
-	arquivo = require('fs'),					//módulo para manipular arquivos
-	path = require('path'),
-	properties = require('./properties'),
-	db = require('./db');
-
+      arquivo = require('fs'),
+      //módulo para manipular arquivos
+path = require('path'),
+      properties = require('./properties'),
+      db = require('./db');
 
 let totens = db.getTotems();
-
 
 /* Manage Server */
 app.listen(process.env.PORT || properties.SERVER_PORT);
@@ -31,17 +30,16 @@ app.get('/contatos', (req, res) => {
 app.post('/contatos', (req, res) => {
 	console.log(req.body);
 	let id = req.body.totemID,
-		situation = req.body.situation;
+	    situation = req.body.situation;
 
-	let totem = totems.find((totem) => {
+	let totem = totems.find(totem => {
 		return totem.description_id = id;
 	});
 
 	if (situation != totem.situation) {
 		totem.situation = situation;
 		console.log("Situações diferentes");
-	}
-	else {
+	} else {
 		console.log("Mesma Situação");
 	}
 
@@ -51,3 +49,4 @@ app.post('/contatos', (req, res) => {
 app.get('/totems', (req, res) => {
 	res.json(totems);
 });
+//# sourceMappingURL=server.js.map

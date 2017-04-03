@@ -34,6 +34,11 @@ Cronograma:
 
     $ node server/server.js
 
+# OBS:
+
+1. Configurar no arquivo properties.js as informações de conexão ao banco de dados.
+2. Configurar no arquivo esp-wifi.ino a URL do Servidor e os dados da rede Wifi. Após, compilar e rodar no NodeMCU (ESP8266)
+
 
 
 # Documentação Complementar:
@@ -43,5 +48,6 @@ ESP8266: HTTP GET Requests -> https://techtutorialsx.wordpress.com/2016/07/17/es
 ESP8266: HTTP POST Requests -> https://techtutorialsx.wordpress.com/2016/07/21/esp8266-post-requests/
 
 Node + PostGrees -> https://github.com/brianc/node-postgres
+                    & https://medium.com/@tarkus/postgresql-in-node-js-with-es7-async-await-d8a29cfa644f
 
 Node REST Design Pattern -> https://hackernoon.com/restful-api-design-with-node-js-26ccf66eab09#.3e92h0mt2
