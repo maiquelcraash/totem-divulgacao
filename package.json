@@ -19,5 +19,8 @@
   "dependencies": {
     "express": "3.x",
     "pg": "^6.1.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0"
   }
 }

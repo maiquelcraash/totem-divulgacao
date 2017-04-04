@@ -21,18 +21,16 @@ const pool = new pg.Pool(config);
 
 let totemsManager = () => {
 
+	/**
+	 * Retorna todos os totems da base de dados
+	 *
+	 * @returns {Promise.<TResult>}
+	 */
 	let getTotems = () => {
-		let totems = [];
-
-		executeQuery('SELECT * FROM totems', (err, res) => {
-			if (!err) {
-				totems = res.map((row) => {
-					return Totem.newTotem(row.code, row.description_id, row.situation);
-				});
-			}
-		});
-
-		return totems;
+		return executeQuery('SELECT * FROM totems')
+			.then((res) => {
+				return res.rows;
+			});
 	};
 
 	return {
@@ -40,14 +38,24 @@ let totemsManager = () => {
 	}
 };
 
-function executeQuery(query, callback) {
+// async function executeQuery(query) {
+// 	pool.query(query)
+// 		.then((res) => {
+// 			return res.rows;
+// 		})
+// 		.catch((err) => {
+// 			return err;
+// 		});
+// }
 
-	pool.query(query, (err, res) => {
-		if (err) {
-			return callback(err, null);
-		}
-		return callback(null, res.rows);
-	});
+function executeQuery(query) {
+	let res = null;
+	try {
+		res = pool.query(query);
+	} catch (err) {
+		console.error('Error running query: ', err);
+	}
+	return res;
 }
 
 module.exports = totemsManager();

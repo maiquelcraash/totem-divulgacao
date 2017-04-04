@@ -6,8 +6,10 @@ const app = require('./../app'),
 	db = require('./db');
 
 
-let totens = db.getTotems();
-
+db.getTotems()
+	.then((res) => {
+		console.log(res);
+	});
 
 /* Manage Server */
 app.listen(process.env.PORT || properties.SERVER_PORT);

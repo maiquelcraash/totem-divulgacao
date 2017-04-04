@@ -24,7 +24,7 @@ Cronograma:
 
 
 # Instruções para rodar o projeto:
-1. Precisa ter o Node instalado (instalar a versão mais recente).
+1. Precisa ter o Node instalado (instalar a versão mais recente, pelo menos 7.0).
 2. Pelo terminal/cmd, na pasta do projeto, rodar o comando:
 
     $ npm install

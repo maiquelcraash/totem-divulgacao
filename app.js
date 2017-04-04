@@ -17,5 +17,4 @@
 	app.use(express.bodyParser());
 
 	module.exports = app;
-
 }());
