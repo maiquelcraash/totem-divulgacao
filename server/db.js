@@ -29,12 +29,46 @@ let totemsManager = () => {
 	let getTotems = () => {
 		return executeQuery('SELECT * FROM totems')
 			.then((res) => {
-				return res.rows;
+				let totems;
+				totems = res.rows.map((row) => {
+					return Totem.newTotem(row.code, row.description_id, row.situation);
+				});
+				return totems;
+			});
+	};
+
+	let getTotemByCode = (code) => {
+		const query = 'SELECT * FROM totems where code = ' + code;
+		return executeQuery(query)
+			.then((res) => {
+				if (res.rows.length > 0) return Totem.newTotem(res.rows[0].code, res.rows[0].description_id, res.rows[0].situation);
+				else return null
+			});
+	};
+
+	let findTotemsByName = (name) => {
+		const query = 'SELECT * FROM totems where description_id ilike \'%' + name + '%\'';
+		return executeQuery(query)
+			.then((res) => {
+				if (res.rows.length > 0) {
+					let totems;
+					totems = res.rows.map((row) => {
+						return Totem.newTotem(row.code, row.description_id, row.situation);
+					});
+					return totems;
+				}
+				else return null;
+			})
+			.catch((err) => {
+				console.error(err);
+				return null;
 			});
 	};
 
 	return {
-		getTotems: getTotems
+		getTotems: getTotems,
+		getTotemByCode: getTotemByCode,
+		findTotemsByName: findTotemsByName
 	}
 };
 

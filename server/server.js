@@ -5,12 +5,6 @@ const app = require('./../app'),
 	properties = require('./properties'),
 	db = require('./db');
 
-
-db.getTotems()
-	.then((res) => {
-		console.log(res);
-	});
-
 /* Manage Server */
 app.listen(process.env.PORT || properties.SERVER_PORT);
 
@@ -47,9 +41,50 @@ app.post('/contatos', (req, res) => {
 		console.log("Mesma Situação");
 	}
 
-	res.send;
+	res.send();
 });
 
 app.get('/totems', (req, res) => {
-	res.json(totems);
+	db.getTotems()
+		.then((result) => {
+			console.log(result);
+			res.json(result);
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+});
+
+app.get('/totem/:code', (req, res) => {
+	db.getTotemByCode(req.param('code'))
+		.then((result) => {
+			if (result) {
+				console.log(result);
+				res.json(result);
+			}
+			else {
+				res.status(404);
+				res.send();
+			}
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+});
+
+app.get('/totems/find/:name', (req, res) => {
+	db.findTotemsByName(req.param('name'))
+		.then((result) => {
+			if (result) {
+				console.log(result);
+				res.json(result);
+			}
+			else {
+				res.status(404);
+				res.send();
+			}
+		})
+		.catch((err) => {
+			console.error(err);
+		});
 });
