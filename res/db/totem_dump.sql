@@ -42,7 +42,9 @@ CREATE TABLE totems (
     code integer NOT NULL,
     description_id character varying(2044) NOT NULL,
     situation character varying(1),
-    coordinates character varying(100)
+    coordinates character varying(100),
+    date_time timestamp DEFAULT now(),
+    day_week varchar(20) DEFAULT to_char(current_date, 'day')
 );
 
 

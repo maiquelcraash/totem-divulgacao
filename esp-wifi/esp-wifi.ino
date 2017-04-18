@@ -23,14 +23,18 @@ const char *serverURL = "http://172.20.10.2:8082/contatos";
 
 char postBuffer[1024];
 boolean situation = 1;
+int pinoSensor = 0;
+int valorSensor = 0;
 
-boolean getSituation() {
-  int pinoSensor = A0;
-  int valorSensor = 0;
+boolean getSituation(int pino) {
+  pinoSensor = pino;
+  valorSensor = 0;
+  
+  pinMode(pinoSensor, INPUT);
  
-  valorSensor = analogRead(pinoSensor);
-  //int valorCorrigido = (valorSensor * 5) / 1024;
-  if( valorSensor > 100) {
+  valorSensor = digitalRead(pinoSensor);
+  
+  if( valorSensor > 0) {
       return true;
   }
   else {
@@ -67,7 +71,7 @@ void loop() {
     strcat(postBuffer, totemID);
     strcat(postBuffer, "&situation=");
 
-    if (getSituation()) {
+    if (getSituation(D0)) {
         strcat(postBuffer, "1");
     }
     else {
