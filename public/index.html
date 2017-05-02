@@ -13,22 +13,27 @@
     <section id="totem-situation">
         <div class="container-fluid">
             <div class="row">
-                <div class="col col-md-7 col-sm-12">
+                <div class="col col-md-7 col-sm-12 col-12">
                     <h2 class="display-4 text-center">Status</h2>
                     <div class="totem-list"></div>
                 </div>
-                <div class="col col-md-5 col-sm-12">
+                <div class="col col-md-5 col-sm-12 col-12" >
                     <h2 class="display-4 text-center">Adicionar Totem</h2>
-                    <form name='form' method='post' action='' class="totem-form">
+                    <form name='form' class="totem-form" method="post" action="/addTotem">
                         <div class="form-group">
-                            <input name="description_id" type="text" class="form-control" id="inputDescriptionId"
+                            <input name="description_id" type="text" required class="form-control" id="inputDescriptionId"
                                    placeholder="ID Descrição">
                         </div>
                         <div class="form-group">
-                            <input name="coordinates" type="text" class="form-control" id="inputCoordinates"
-                                   placeholder="Coordenadas">
+                            <input name="latitude" type="number" required class="form-control" id="inputLatitude"
+                                   placeholder="Latitude">
+                            <input name="longitude" type="number" required class="form-control" id="inputLongitude"
+                                   placeholder="Longitude">
+                            <p>
+                                Para descobrir as coordenadas, acesse ao <a href="http://www.mapcoordinates.net/pt">site</a>
+                            </p>
                         </div>
-                        <button type="submit" name="submit" value="submit" class="btn btn-primary">Adicionar</button>
+                        <button id="add" type="submit" name="submit" value="submit" class="btn btn-primary">Adicionar</button>
                         <p id="thx" style="display: none">Obrigado pelo seu contato! Retornaremos em no máximo 48
                             horas!</p>
                     </form>

@@ -3,10 +3,16 @@ const app = require('./../app'),
 	arquivo = require('fs'),					//módulo para manipular arquivos
 	path = require('path'),
 	properties = require('./properties'),
+	Totem = require('./entities/totem'),
 	db = require('./db');
 
 /* Manage Server */
 app.listen(process.env.PORT || properties.SERVER_PORT);
+
+db.getNextTotemCode()
+	.then((result) => {
+		console.log("MAX = " + result);
+	});
 
 app.get('/', (req, res) => {
 	res.sendfile('public/index.html');
@@ -19,30 +25,48 @@ app.all('*', (req, res, next) => {
 	next();
 });
 
-app.get('/contatos', (req, res) => {
+
+/***************************************
+ *  TOTEM connection API
+ * *************************************/
+
+//Connect totem to server
+app.get('/totemAPI', (req, res) => {
 	console.log("\nTotem Attemp: IP:" + req.connection.remoteAddress);
 	res.write("Conected to server...");
 });
 
-app.post('/contatos', (req, res) => {
+//Update totem Status on Server
+app.post('/totemAPI', (req, res) => {
 	console.log(req.body);
-	let id = req.body.totemID,
+	let description_id = req.body.totemID,
 		situation = req.body.situation;
 
-	let totem = totems.find((totem) => {
-		return totem.description_id = id;
-	});
+	db.getTotemByDescriptionID(description_id)
+		.then((totem) => {
+			if (situation !== totem.situation) {
+				totem.situation = situation; //todo implementar método para atualizar totem
 
-	if (situation != totem.situation) {
-		totem.situation = situation;
-		console.log("Situações diferentes");
-	}
-	else {
-		console.log("Mesma Situação");
-	}
+				db.updateTotem(totem)
+					.then(() => {
+						console.log("Totem " + totem.description_id + "atulizado no banco");
+					});
 
-	res.send();
+				console.log("Situações diferentes");
+			}
+			else {
+				console.log("Mesma Situação");
+			}
+
+			res.send();
+		});
+
 });
+
+
+/***************************************
+ *  Web Application API
+ * *************************************/
 
 app.get('/totems', (req, res) => {
 	db.getTotems()
@@ -86,5 +110,31 @@ app.get('/totems/find/:name', (req, res) => {
 		})
 		.catch((err) => {
 			console.error(err);
+		});
+});
+
+app.post('/addTotem', (req, res) => {
+	let desc_id, lat, long, code;
+
+	desc_id = req.body.description_id;
+	lat = req.body.latitude;
+	long = req.body.longitude;
+
+	db.getNextTotemCode()
+		.then((result) => {
+			code = result + 1;
+
+			let totem = Totem.newTotem(code, desc_id, 0, lat, long);
+
+			db.addTotem(totem)
+				.then(() => {
+					res.status(201);
+					res.send();
+				})
+				.catch((err) => {
+					res.status(400);
+					res.body = err;
+					res.send();
+				})
 		});
 });

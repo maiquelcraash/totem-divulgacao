@@ -19,7 +19,7 @@ ESP8266WiFiMulti WiFiMulti;
 const char *totemID = "Totem 2 - Shopping Lajeado";
 const char *ssid = "iPhone-ml";
 const char *password = "12345678";
-const char *serverURL = "http://172.20.10.2:8082/contatos";
+const char *serverURL = "http://172.20.10.2:8082/totemAPI";
 
 char postBuffer[1024];
 boolean situation = 1;

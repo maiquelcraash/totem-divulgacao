@@ -37,4 +37,16 @@ function init() {
 	};
 
 	xmlHttp.send();
+
+	let addButtom = document.getElementById("add");
+
+	addButtom.submit((e) => {
+		e.preventDefault();
+
+		window.alert("TESTES");
+	})
+}
+
+function sendData() {
+	window.alert("Teste");
 }

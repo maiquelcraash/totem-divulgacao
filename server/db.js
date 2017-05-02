@@ -31,17 +31,17 @@ let totemsManager = () => {
 			.then((res) => {
 				let totems;
 				totems = res.rows.map((row) => {
-					return Totem.newTotem(row.code, row.description_id, row.situation);
+					return Totem.newTotem(row.code, row.description_id, row.situation, row.latitude, row.longitude);
 				});
 				return totems;
 			});
 	};
 
-	let getTotemByCode = (code) => {
-		const query = 'SELECT * FROM totems where code = ' + code;
+	let getTotemByDescriptionID = (description_id) => {
+		const query = 'SELECT * FROM totems where description_id = \'' + description_id + '\'';
 		return executeQuery(query)
 			.then((res) => {
-				if (res.rows.length > 0) return Totem.newTotem(res.rows[0].code, res.rows[0].description_id, res.rows[0].situation);
+				if (res.rows.length > 0) return Totem.newTotem(res.rows[0].code, res.rows[0].description_id, res.rows[0].situation, res.rows[0].latitude, res.rows[0].longitude);
 				else return null
 			});
 	};
@@ -53,7 +53,7 @@ let totemsManager = () => {
 				if (res.rows.length > 0) {
 					let totems;
 					totems = res.rows.map((row) => {
-						return Totem.newTotem(row.code, row.description_id, row.situation);
+						return Totem.newTotem(row.code, row.description_id, row.situation, row.latitude, row.longitude);
 					});
 					return totems;
 				}
@@ -65,22 +65,63 @@ let totemsManager = () => {
 			});
 	};
 
+	let addTotem = (totem) => {
+		const query = 'insert into totems values(' +
+			totem.code + ', ' +
+			'\'' + totem.description_id + '\',' +
+			'\'' + totem.situation + '\',' +
+			'\'' + totem.latitude + '\',' +
+			'\'' + totem.longitude + '\')';
+
+		console.log(query);
+
+		return executeQuery(query);
+	};
+
+	let updateTotem = (totem) => {
+		const query = 'update totems set ' +
+			' description_id = ' + '\'' + totem.description_id + '\',' +
+			'situation = ' + '\'' + totem.situation + '\',' +
+			'latitude = ' + '\'' + totem.latitude + '\',' +
+			'longitude = ' + '\'' + totem.longitude + '\'' +
+			' where code = ' + totem.code;
+
+		console.log(query);
+
+		return executeQuery(query);
+	};
+
+
+	//Test AddTotem
+	// let totem = Totem.newTotem(6, "TESTE Pris", "1", "12312312", "0432342");
+	// addTotem(totem)
+	// 	.catch((err) => {
+	// 		console.log(err.detail);
+	// 	});
+
+	let getNextTotemCode = () => {
+		const query = "SELECT MAX(code) as code from totems";
+		return executeQuery(query)
+			.then((res) => {
+				if (res.rows.length > 0) return res.rows[0].code;
+				else return null
+			})
+			.catch((err) => {
+				console.error(err);
+				return null;
+			});
+	};
+
 	return {
 		getTotems: getTotems,
-		getTotemByCode: getTotemByCode,
-		findTotemsByName: findTotemsByName
+		getTotemByDescriptionID: getTotemByDescriptionID,
+		findTotemsByName: findTotemsByName,
+		addTotem: addTotem,
+		getNextTotemCode: getNextTotemCode,
+		updateTotem: updateTotem
 	}
 };
 
-// async function executeQuery(query) {
-// 	pool.query(query)
-// 		.then((res) => {
-// 			return res.rows;
-// 		})
-// 		.catch((err) => {
-// 			return err;
-// 		});
-// }
 
 function executeQuery(query) {
 	let res = null;
