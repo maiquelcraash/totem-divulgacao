@@ -74,11 +74,8 @@ COPY totems (code, description_id, situation, latitude, longitude) FROM stdin;
 3	Totem 3 - Praça do Chafariz	0	-29.46866093	-51.96386218
 4	Totem 4 - SESC	0	-29.4694212	-51.9643181
 2	Totem 2 - HBB	0	-29.46315	-51.966621
-5	TESTE	1	12312312	0432342
-6	TESTE Prith é bacana	1	12312312	0432342
+5	Totem 2 - Shopping Lajeado 2	0	12312312	12312312312
 1	Totem 2 - Shopping Lajeado	1	-29.4494285	-51.9688635
-7	TOTEM	0	12345	123124
-8	TOTEM	0	12345	123124
 \.
 
 
@@ -88,6 +85,14 @@ COPY totems (code, description_id, situation, latitude, longitude) FROM stdin;
 
 ALTER TABLE ONLY totems
     ADD CONSTRAINT totems_pkey PRIMARY KEY (code);
+
+
+--
+-- Name: totems_un; Type: CONSTRAINT; Schema: public; Owner: maiquel; Tablespace: 
+--
+
+ALTER TABLE ONLY totems
+    ADD CONSTRAINT totems_un UNIQUE (description_id);
 
 
 --

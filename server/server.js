@@ -114,7 +114,9 @@ app.get('/totems/find/:name', (req, res) => {
 });
 
 app.post('/addTotem', (req, res) => {
+	res.set('Content-Type', 'text/plain');
 	let desc_id, lat, long, code;
+	console.log(req.body);
 
 	desc_id = req.body.description_id;
 	lat = req.body.latitude;
@@ -132,9 +134,15 @@ app.post('/addTotem', (req, res) => {
 					res.send();
 				})
 				.catch((err) => {
+					console.error("ERROR: " + err.message + "\nDETAILS: " + err.detail);
 					res.status(400);
-					res.body = err;
-					res.send();
+
+					if (err.code === "23505") {
+						res.send('ERRO: Totem "' + desc_id + '" já existente.');
+					}
+					else {
+						res.send('Erro ao Processar requisição.')
+					}
 				})
 		});
 });
