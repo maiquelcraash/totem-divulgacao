@@ -53,6 +53,11 @@ app.post('/totemAPI', (req, res) => {
 					});
 
 				console.log("Situações diferentes");
+
+				db.addActivity(totem.code, situation)
+					.catch((err) => {
+						console.error(err);
+					});
 			}
 			else {
 				console.log("Mesma Situação");

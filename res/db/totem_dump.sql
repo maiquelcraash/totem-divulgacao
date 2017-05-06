@@ -63,6 +63,9 @@ ALTER TABLE totems OWNER TO maiquel;
 --
 
 COPY totem_log (ref_totem, date_time, day_week, situation) FROM stdin;
+1	2017-05-05 22:30:46.690096	friday   	1
+1	2017-05-05 22:32:05.263397	friday   	1
+1	2017-05-05 22:33:05.519709	friday   	1
 \.
 
 
@@ -71,10 +74,11 @@ COPY totem_log (ref_totem, date_time, day_week, situation) FROM stdin;
 --
 
 COPY totems (code, description_id, situation, latitude, longitude) FROM stdin;
-3	Totem 3 - Praça do Chafariz	0	-29.46866093	-51.96386218
-4	Totem 4 - SESC	0	-29.4694212	-51.9643181
 2	Totem 2 - HBB	0	-29.46315	-51.966621
-5	Totem 2 - Shopping Lajeado 2	0	12312312	12312312312
+3	Totem 3 - Praça do Chafariz	2	-29.46866093	-51.96386218
+4	Totem 4 - SESC	2	-29.4694212	-51.9643181
+5	Pritsh Totem	0	-28	-50
+6	Teste do LUDI	0	-29	-59
 1	Totem 2 - Shopping Lajeado	1	-29.4494285	-51.9688635
 \.
 

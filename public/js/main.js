@@ -12,6 +12,12 @@ let hosts = {
 	addTotemHost: arr[0] + "//" + arr[2] + "/addTotem"
 };
 
+let colorMap = new Map();
+colorMap.set("0","#ce3737");
+colorMap.set("1","#ffea22");
+colorMap.set("2","#4bb04e");
+
+
 init();
 
 function init() {
@@ -46,9 +52,15 @@ function createTotemList() {
 
 			if (totem.situation === "1") {
 				totemDiv.classList.remove("empty");
+				totemDiv.classList.add("half");
+			}
+			else if (totem.situation === "2") {
+				totemDiv.classList.remove("empty");
+				totemDiv.classList.remove("half");
 			}
 			else {
 				totemDiv.classList.add("empty");
+				totemDiv.classList.remove("half");
 			}
 
 			totemList.appendChild(totemDiv);
@@ -82,7 +94,7 @@ function addTotem(e) {
 			window.alert('Totem "' + fields.description_id + '" adicionado com sucesso');
 			location.reload();
 		}
-		else if (xmlHttp.readyState === XMLHttpRequest.DONE){
+		else if (xmlHttp.readyState === XMLHttpRequest.DONE) {
 			window.alert(xmlHttp.responseText);
 		}
 	};
@@ -91,3 +103,55 @@ function addTotem(e) {
 
 
 }
+
+function initMap() {
+
+	let xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("GET", hosts.totemsHost, true); // false for synchronous request
+
+	xmlHttp.onload = function (data) {
+		let totems = JSON.parse(xmlHttp.responseText);
+		let map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 13,
+			center: {lat: parseFloat(totems[0].latitude), lng: parseFloat(totems[0].longitude)}
+		});
+
+		let infoList = [];
+
+		totems.forEach((totem) => {
+			let infowindow = new google.maps.InfoWindow({
+				content: '<p class="map-tooltip">'+totem.description_id+'</p>'
+			});
+
+
+
+			infoList.push(infowindow);
+
+			let marker = new google.maps.Marker({
+				position: {lat: parseFloat(totem.latitude), lng: parseFloat(totem.longitude)},
+				map: map,
+				content: totem.description_id,
+				icon: {
+					path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+					fillColor: colorMap.get(totem.situation),
+					fillOpacity: 1,
+					scale: 5.5,
+					strokeWeight: 1
+				}
+			});
+
+			marker.addListener('click', function() {
+				infoList.forEach(function (infowindow) {
+					infowindow.close();
+				});
+				infowindow.open(map, marker);
+			});
+		})
+	};
+
+	xmlHttp.send();
+}
+
+
+let data = new Date();
+console.log(data.getDay());

@@ -22,7 +22,7 @@ nav {
   font-size: 50pt;
 }
 section#totem-situation .display-4 {
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 20px 0 20px 0;
 }
 section#totem-situation .totem-list .totem-list-item {
@@ -38,4 +38,34 @@ section#totem-situation .totem-list .totem-list-item {
 }
 section#totem-situation .totem-list .empty {
   background-color: #ce3737;
+}
+section#totem-situation .totem-list .half {
+  background-color: #ffea22;
+  color: #ab8900;
+}
+section#totem-situation .totem-form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+section#totem-situation .totem-geo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  width: 90%;
+}
+section#totem-situation .totem-geo #map {
+  height: 400px;
+  width: 100%;
+}
+section#totem-situation .totem-geo #map .map-tooltip {
+  text-align: center;
+  font-weight: 600 !important;
+}
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

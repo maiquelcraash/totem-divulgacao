@@ -1,5 +1,6 @@
 @color-primary-green: #4bb04e;
 @color-primary-red: #ce3737;
+@color-primary-yellow: #ffea22;
 
 * {
     box-sizing: border-box;
@@ -31,7 +32,7 @@ nav {
 
 section#totem-situation {
     .display-4 {
-        font-size: 3rem;
+        font-size: 2rem;
         margin: 20px 0 20px 0;
     }
 
@@ -51,10 +52,38 @@ section#totem-situation {
         .empty {
             background-color: @color-primary-red;
         }
+
+        .half {
+            background-color: @color-primary-yellow;
+            color: #ab8900;
+        }
     }
 
     .totem-form {
+        .center-block;
+        width: 90%;
     }
 
+    .totem-geo {
+        .center-block;
+        margin-top: 60px;
+        width: 90%;
 
+        #map {
+            height: 400px;
+            width: 100%;
+
+            .map-tooltip {
+                text-align: center;
+                font-weight: 600 !important;
+            }
+        }
+    }
+
+}
+
+.center-block{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

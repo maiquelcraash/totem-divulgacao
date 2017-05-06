@@ -73,8 +73,6 @@ let totemsManager = () => {
 			'\'' + totem.latitude + '\',' +
 			'\'' + totem.longitude + '\')';
 
-		console.log(query);
-
 		return executeQuery(query);
 	};
 
@@ -112,13 +110,19 @@ let totemsManager = () => {
 			});
 	};
 
+	let addActivity = (totemCode, situation) => {
+		const query = "INSERT INTO totem_log(ref_totem, situation) VALUES (" + totemCode + ", '" + situation + "')";
+		return executeQuery(query);
+	};
+
 	return {
 		getTotems: getTotems,
 		getTotemByDescriptionID: getTotemByDescriptionID,
 		findTotemsByName: findTotemsByName,
 		addTotem: addTotem,
 		getNextTotemCode: getNextTotemCode,
-		updateTotem: updateTotem
+		updateTotem: updateTotem,
+		addActivity: addActivity
 	}
 };
 
