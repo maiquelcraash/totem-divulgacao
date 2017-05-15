@@ -17,9 +17,11 @@
 ESP8266WiFiMulti WiFiMulti;
 
 const char *totemID = "Totem 2 - Shopping Lajeado";
-const char *ssid = "Maiquel 2.4GHZ";
-const char *password = "nadafeito4321";
-const char *serverURL = "http://192.168.0.103:8082/totemAPI";
+const char *ssid = "Univates";
+const char *password = "12345678";
+//const char *ssid = "iPhone-ml";
+//const char *password = "12345678";
+const char *serverURL = "http://172.20.10.2:8082/totemAPI";
 
 char postBuffer[1024];
 boolean situation = 1;
@@ -72,9 +74,17 @@ void loop() {
     strcat(postBuffer, "&situation=");
 
     if (getSituation(D0)) {
-        strcat(postBuffer, "1");
+        if(getSituation(D1)) {
+          USE_SERIAL.print("Cheio\n");
+          strcat(postBuffer, "2");
+        }
+        else {
+          USE_SERIAL.print("Metade\n");
+          strcat(postBuffer, "1");  
+        }
     }
     else {
+        USE_SERIAL.print("Vaziu\n");
         strcat(postBuffer, "0");
     }
 
@@ -121,6 +131,6 @@ void loop() {
         USE_SERIAL.print("WI-FI ERROR! Check the ssid and pass parameters\n");
     }
 
-    delay(5000);
+    delay(2000);
 }
 

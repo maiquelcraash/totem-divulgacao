@@ -13,9 +13,9 @@ let hosts = {
 };
 
 let colorMap = new Map();
-colorMap.set("0","#ce3737");
-colorMap.set("1","#ffea22");
-colorMap.set("2","#4bb04e");
+colorMap.set("0", "#ce3737");
+colorMap.set("1", "#ffea22");
+colorMap.set("2", "#4bb04e");
 
 
 init();
@@ -37,6 +37,11 @@ function init() {
  *    Creates the totem list
  * */
 function createTotemList() {
+
+	setTimeout(() => {
+		totemList.innerHTML = "";
+		createTotemList();
+	}, 5000);
 
 	let xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", hosts.totemsHost, true); // false for synchronous request
@@ -120,9 +125,8 @@ function initMap() {
 
 		totems.forEach((totem) => {
 			let infowindow = new google.maps.InfoWindow({
-				content: '<p class="map-tooltip">'+totem.description_id+'</p>'
+				content: '<p class="map-tooltip">' + totem.description_id + '</p>'
 			});
-
 
 
 			infoList.push(infowindow);
@@ -140,7 +144,7 @@ function initMap() {
 				}
 			});
 
-			marker.addListener('click', function() {
+			marker.addListener('click', function () {
 				infoList.forEach(function (infowindow) {
 					infowindow.close();
 				});
