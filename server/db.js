@@ -4,7 +4,8 @@
 
 const pg = require('pg'),
 	properties = require('./properties'),
-	Totem = require('./entities/totem');
+	Totem = require('./entities/totem'),
+	Util = require('./util');
 
 /* #### Configure POSTGRES #### */
 const config = {
@@ -31,7 +32,8 @@ let totemsManager = () => {
 			.then((res) => {
 				let totems;
 				totems = res.rows.map((row) => {
-					return Totem.newTotem(row.code, row.description_id, row.situation, row.latitude, row.longitude);
+					let last_activity = Util.timestampToDate(row.last_activity);
+					return Totem.newTotem(row.code, row.description_id, row.situation, row.latitude, row.longitude, last_activity);
 				});
 				return totems;
 			});
@@ -41,7 +43,10 @@ let totemsManager = () => {
 		const query = 'SELECT * FROM totems where description_id = \'' + description_id + '\'';
 		return executeQuery(query)
 			.then((res) => {
-				if (res.rows.length > 0) return Totem.newTotem(res.rows[0].code, res.rows[0].description_id, res.rows[0].situation, res.rows[0].latitude, res.rows[0].longitude);
+				if (res.rows.length > 0) {
+					let last_activity = Util.timestampToDate(res.rows[0].last_activity);
+					return Totem.newTotem(res.rows[0].code, res.rows[0].description_id, res.rows[0].situation, res.rows[0].latitude, res.rows[0].longitude, last_activity);
+				}
 				else return null
 			});
 	};
@@ -53,7 +58,10 @@ let totemsManager = () => {
 				if (res.rows.length > 0) {
 					let totems;
 					totems = res.rows.map((row) => {
-						return Totem.newTotem(row.code, row.description_id, row.situation, row.latitude, row.longitude);
+
+						let last_activity = Util.timestampToDate(row.last_activity);
+
+						return Totem.newTotem(row.code, row.description_id, row.situation, row.latitude, row.longitude, last_activity);
 					});
 					return totems;
 				}
@@ -71,17 +79,22 @@ let totemsManager = () => {
 			'\'' + totem.description_id + '\',' +
 			'\'' + totem.situation + '\',' +
 			'\'' + totem.latitude + '\',' +
-			'\'' + totem.longitude + '\')';
+			'\'' + totem.longitude + '\',' +
+			'\'' + totem.last_activity + '\')';
 
 		return executeQuery(query);
 	};
 
 	let updateTotem = (totem) => {
+
+		let timestamp = Util.dateToTimestamp(totem.last_activity);
+
 		const query = 'update totems set ' +
 			' description_id = ' + '\'' + totem.description_id + '\',' +
 			'situation = ' + '\'' + totem.situation + '\',' +
 			'latitude = ' + '\'' + totem.latitude + '\',' +
-			'longitude = ' + '\'' + totem.longitude + '\'' +
+			'longitude = ' + '\'' + totem.longitude + '\',' +
+			'last_activity = ' + '\'' + timestamp + '\'' +
 			' where code = ' + totem.code;
 
 		console.log(query);

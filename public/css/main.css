@@ -10,7 +10,7 @@ body {
 nav {
   width: 100%;
   height: 100px;
-  background-color: #4bb04e;
+  background-color: #0275d8;
 }
 .col {
   padding: 30px;
@@ -18,14 +18,30 @@ nav {
 nav {
   padding: 5px;
   color: white;
+}
+nav h1 {
   font-weight: 600;
-  font-size: 50pt;
+  font-size: 35pt;
+  color: white;
+}
+nav .menu {
+  display: flex;
+}
+nav .menu .menu-item {
+  margin: 0 10px 10px 0;
+}
+nav .menu .menu-item a {
+  color: inherit;
+  font-weight: inherit;
+}
+nav .menu .active {
+  font-weight: 500;
 }
 section#totem-situation .display-4 {
   font-size: 2rem;
   margin: 20px 0 20px 0;
 }
-section#totem-situation .totem-list .totem-list-item {
+section#totem-situation .totem-list-item {
   color: white;
   height: 30px;
   margin-top: 5px;
@@ -36,12 +52,25 @@ section#totem-situation .totem-list .totem-list-item {
   border-radius: 5px;
   background-color: #4bb04e;
 }
-section#totem-situation .totem-list .empty {
+section#totem-situation .empty {
   background-color: #ce3737;
+  color: white;
 }
-section#totem-situation .totem-list .half {
+section#totem-situation .half {
   background-color: #ffea22;
   color: #ab8900;
+}
+section#totem-situation .offline {
+  background-color: #bcbcbc;
+  color: black;
+}
+section#totem-situation .caption {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid dimgrey;
+  border-radius: 5px;
+  width: 80%;
+  text-align: center;
 }
 section#totem-situation .totem-form {
   display: block;

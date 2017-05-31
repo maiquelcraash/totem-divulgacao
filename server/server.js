@@ -38,19 +38,15 @@ app.get('/totemAPI', (req, res) => {
 
 //Update totem Status on Server
 app.post('/totemAPI', (req, res) => {
-	console.log(req.body);
 	let description_id = req.body.totemID,
 		situation = req.body.situation;
 
 	db.getTotemByDescriptionID(description_id)
 		.then((totem) => {
-			if (situation !== totem.situation) {
-				totem.situation = situation; //todo implementar método para atualizar totem
+			totem.last_activity = new Date();
 
-				db.updateTotem(totem)
-					.then(() => {
-						console.log("Totem " + totem.description_id + "atulizado no banco");
-					});
+			if (situation !== totem.situation) {
+				totem.situation = situation;
 
 				console.log("Situações diferentes");
 
@@ -62,6 +58,11 @@ app.post('/totemAPI', (req, res) => {
 			else {
 				console.log("Mesma Situação");
 			}
+
+			db.updateTotem(totem)
+				.then(() => {
+					console.log("Totem " + totem.description_id + " atualizado no banco");
+				});
 
 			res.send();
 		});
@@ -76,7 +77,6 @@ app.post('/totemAPI', (req, res) => {
 app.get('/totems', (req, res) => {
 	db.getTotems()
 		.then((result) => {
-			console.log(result);
 			res.json(result);
 		})
 		.catch((err) => {
@@ -88,7 +88,6 @@ app.get('/totem/:code', (req, res) => {
 	db.getTotemByCode(req.param('code'))
 		.then((result) => {
 			if (result) {
-				console.log(result);
 				res.json(result);
 			}
 			else {
@@ -105,7 +104,6 @@ app.get('/totems/find/:name', (req, res) => {
 	db.findTotemsByName(req.param('name'))
 		.then((result) => {
 			if (result) {
-				console.log(result);
 				res.json(result);
 			}
 			else {

@@ -1,6 +1,8 @@
 @color-primary-green: #4bb04e;
 @color-primary-red: #ce3737;
 @color-primary-yellow: #ffea22;
+@color-primary-blue: #0275d8;
+@color-primary-gray: #bcbcbc;
 
 * {
     box-sizing: border-box;
@@ -16,7 +18,7 @@ body {
 nav {
     width: 100%;
     height: 100px;
-    background-color: @color-primary-green;
+    background-color: @color-primary-blue;
 }
 
 .col {
@@ -26,8 +28,29 @@ nav {
 nav {
     padding: 5px;
     color: white;
-    font-weight: 600;
-    font-size: 50pt;
+
+    h1 {
+        font-weight: 600;
+        font-size: 35pt;
+        color: white;
+    }
+
+    .menu {
+        display: flex;
+
+        .menu-item {
+            margin: 0 10px 10px 0;
+
+            a {
+                color: inherit;
+                font-weight: inherit;
+            }
+        }
+
+        .active {
+            font-weight: 500;
+        }
+    }
 }
 
 section#totem-situation {
@@ -36,27 +59,40 @@ section#totem-situation {
         margin: 20px 0 20px 0;
     }
 
-    .totem-list {
-        .totem-list-item {
-            color: white;
-            height: 30px;
-            margin-top: 5px;
-            padding-left: 5px;
-            line-height: 21pt;
-            border-width: 2px;
-            border-color: darkgray;
-            border-radius: 5px;
-            background-color: @color-primary-green;
-        }
+    .totem-list-item {
+        color: white;
+        height: 30px;
+        margin-top: 5px;
+        padding-left: 5px;
+        line-height: 21pt;
+        border-width: 2px;
+        border-color: darkgray;
+        border-radius: 5px;
+        background-color: @color-primary-green;
+    }
 
-        .empty {
-            background-color: @color-primary-red;
-        }
+    .empty {
+        background-color: @color-primary-red;
+        color: white;
+    }
 
-        .half {
-            background-color: @color-primary-yellow;
-            color: #ab8900;
-        }
+    .half {
+        background-color: @color-primary-yellow;
+        color: #ab8900;
+    }
+
+    .offline {
+        background-color: @color-primary-gray;
+        color: black;
+    }
+
+    .caption {
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid dimgrey;
+        border-radius: 5px;
+        width: 80%;
+        text-align: center;
     }
 
     .totem-form {
@@ -82,7 +118,7 @@ section#totem-situation {
 
 }
 
-.center-block{
+.center-block {
     display: block;
     margin-left: auto;
     margin-right: auto;

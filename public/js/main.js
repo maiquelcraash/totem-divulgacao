@@ -23,8 +23,6 @@ init();
 function init() {
 	/* Create Totem Form Listeners */
 	let totemForm = document.querySelector('.totem-form');
-	console.log(totemForm);
-
 	totemForm.addEventListener("submit", addTotem);
 
 	/* Create the totem List */
@@ -55,18 +53,32 @@ function createTotemList() {
 			totemDiv.className = "totem-list-item";
 			totemDiv.innerText = totem.description_id;
 
-			if (totem.situation === "1") {
-				totemDiv.classList.remove("empty");
-				totemDiv.classList.add("half");
-			}
-			else if (totem.situation === "2") {
-				totemDiv.classList.remove("empty");
-				totemDiv.classList.remove("half");
+			let datetime = new Date(totem.last_activity);
+			let now = new Date();
+			let lapsed = now.getTime() - datetime.getTime();
+
+			if (lapsed && lapsed < 30000) {
+				totemDiv.classList.remove("offline");
+
+				if (totem.situation === "1") {
+					totemDiv.classList.remove("empty");
+					totemDiv.classList.add("half");
+				}
+				else if (totem.situation === "2") {
+					totemDiv.classList.remove("empty");
+					totemDiv.classList.remove("half");
+				}
+				else {
+					totemDiv.classList.add("empty");
+					totemDiv.classList.remove("half");
+				}
 			}
 			else {
-				totemDiv.classList.add("empty");
+				totemDiv.classList.add("offline");
 				totemDiv.classList.remove("half");
+				totemDiv.classList.remove("empty");
 			}
+
 
 			totemList.appendChild(totemDiv);
 		})
@@ -82,7 +94,6 @@ function addTotem(e) {
 	e.preventDefault();
 
 	let form = e.target || e.srcElement;
-	console.log(form);
 
 	let fields = {
 		description_id: form.querySelector("#inputDescriptionId").value,
@@ -155,7 +166,3 @@ function initMap() {
 
 	xmlHttp.send();
 }
-
-
-let data = new Date();
-console.log(data.getDay());

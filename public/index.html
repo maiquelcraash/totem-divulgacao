@@ -9,13 +9,36 @@
 </head>
 <body>
     <nav id="navbar">
-        Totem Plus MLRP
+        <div class="container row">
+            <div class="col-md-6">
+                <a href="/">
+                    <h1>Totem Plus MLRP</h1>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <div class="menu">
+                    <div class="menu-item active">
+                        <a href="/">Status</a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="/log">Log</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
     <section id="totem-situation">
         <div class="container-fluid">
             <div class="row">
                 <div class="col col-md-7 col-sm-12 col-12">
                     <h2 class="display-4 text-center">Status</h2>
+                    <div class="row caption">
+                        <div class="col-md-3 col-sm-3 offline">Offline</div>
+                        <div class="col-md-3 col-sm-3 empty">Vazio</div>
+                        <div class="col-md-3 col-sm-3 half">Parcial</div>
+                        <div class="col-md-3 col-sm-3 ">Cheio</div>
+                    </div>
+                    <hr>
                     <div class="totem-list"></div>
                 </div>
                 <div class="col col-md-5 col-sm-12 col-12">
@@ -28,9 +51,11 @@
                                        placeholder="ID Descrição">
                             </div>
                             <div class="form-group">
-                                <input name="latitude" type="number" step="0.0000000000000001" required class="form-control" id="inputLatitude"
+                                <input name="latitude" type="number" step="0.0000000000000001" required
+                                       class="form-control" id="inputLatitude"
                                        placeholder="Latitude">
-                                <input name="longitude" type="number" step="0.0000000000000001" required class="form-control" id="inputLongitude"
+                                <input name="longitude" type="number" step="0.0000000000000001" required
+                                       class="form-control" id="inputLongitude"
                                        placeholder="Longitude">
                                 <p>
                                     Para descobrir as coordenadas, acesse ao <a href="http://www.mapcoordinates.net/pt">site</a>
