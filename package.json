@@ -4,7 +4,8 @@
   "description": "Trabalho de Sistemas Embarcados - UNIVATES - 2017A",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "npm install",
     "start" : "node server/server.js"
   },
   "repository": {
