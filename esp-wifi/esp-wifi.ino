@@ -1,4 +1,4 @@
-/**
+ /**
  * BasicHTTPClient.ino
  *
  *  Created on: 24.05.2015
@@ -17,11 +17,11 @@
 ESP8266WiFiMulti WiFiMulti;
 
 const char *totemID = "Totem 2 - Shopping Lajeado";
-const char *ssid = "Maiquel 2.4GHZ";
-const char *password = "nadafeito4321";
-//const char *ssid = "iPhone-ml";
-//const char *password = "12345678";
-const char *serverURL = "http://192.168.0.103:8082/totemAPI";
+//const char *ssid = "Maiquel 2.4GHZ";
+//const char *password = "nadafeito4321";
+const char *ssid = "iPhone-ml";
+const char *password = "12345678";
+const char *serverURL = "http://node133265-totem.jelasticlw.com.br:11176/totemAPI";
 
 char postBuffer[1024];
 boolean situation = 1;
