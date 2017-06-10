@@ -16,6 +16,7 @@ let colorMap = new Map();
 colorMap.set("0", "#ce3737");
 colorMap.set("1", "#ffea22");
 colorMap.set("2", "#4bb04e");
+colorMap.set("3", "#bcbcbc");
 
 
 init();
@@ -135,6 +136,15 @@ function initMap() {
 		let infoList = [];
 
 		totems.forEach((totem) => {
+
+			let datetime = new Date(totem.last_activity);
+			let now = new Date();
+			let lapsed = now.getTime() - datetime.getTime();
+
+			if(lapsed && lapsed > 30000) {
+				totem.situation = "3";
+			}
+
 			let infowindow = new google.maps.InfoWindow({
 				content: '<p class="map-tooltip">' + totem.description_id + '</p>'
 			});
