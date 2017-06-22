@@ -117,8 +117,24 @@ app.get('/totems/find/:name', (req, res) => {
 		});
 });
 
-app.get('/totems/log/totemActivity', (req, res) => {
+app.get('/log/totemActivity', (req, res) => {
 	logDAO.getLastActivities()
+		.then((result) => {
+			if (result) {
+				res.json(result.rows);
+			}
+			else {
+				res.status(404);
+				res.send();
+			}
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+});
+
+app.get('/log/totemActivityDayOfWeek', (req, res) => {
+	logDAO.getActivitiesDayOfWeek()
 		.then((result) => {
 			if (result) {
 				res.json(result.rows);

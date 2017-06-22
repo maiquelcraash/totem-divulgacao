@@ -38,27 +38,17 @@
         </div>
     </nav>
     
-    <h2>Consumo total por dia (últimos 10 dias com atividades)</h2>
-    <div id="lineChart"></div>
-    <h2>Consumo durante a semana</h2>
-    <div id="pieChart"></div>
+    <section id="graphs" class="container">
+        <div class="row">
+            <div class="col-lg-6 graph-container">
+                <h4>Consumo total por dia (últimos 10 dias com atividades)</h4>
+                <div id="lineChart"></div>
+            </div>
+            <div class="col-lg-6 graph-container">
+                <h4>Consumo durante a semana</h4>
+                <div id="pieChart"></div>
+            </div>
+        </div>
+    </section>
 </body>
-<script>
-	var pieChart = c3.generate({
-		bindto: '#pieChart',
-		data: {
-			// iris data from R
-			columns: [
-				['Domingo', 30],
-				['Segunda', 7],
-				['Ter�a', 5],
-				['Quarta', 15],
-				['Quinta', 10],
-				['Sexta', 13],
-				['S�bado', 15],
-			],
-			type: 'pie'
-		}
-	});
-</script>
 </html>

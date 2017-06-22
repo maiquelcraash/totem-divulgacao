@@ -38,8 +38,33 @@ let logDAO = () => {
 			});
 	};
 
+	/**
+	 * Retorna toda a atividade dos totens agrupado por dia da semana
+	 *
+	 * @returns {Promise.<TResult>}
+	 */
+	let getActivitiesDayOfWeek = () => {
+
+		let query = "select \n" +
+			" log.day_week\tas \"dia\",\n" +
+			" count(*)\tas \"valor\"\n" +
+			"from totem_log log\n" +
+			"where \n" +
+			" log.situation in (\'0\',\'1\')\n" +
+			"group by \n" +
+			" log.day_week\n" +
+			"order by\n" +
+			" \"valor\" desc;";
+
+		return executeQuery(query)
+			.then((res) => {
+				return res;
+			});
+	};
+
 	return {
-		getLastActivities: getLastActivities
+		getLastActivities: getLastActivities,
+		getActivitiesDayOfWeek: getActivitiesDayOfWeek
 	}
 };
 
