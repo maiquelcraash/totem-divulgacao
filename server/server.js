@@ -4,12 +4,13 @@ const app = require('./../app'),
 	path = require('path'),
 	properties = require('./properties'),
 	Totem = require('./entities/totem'),
-	db = require('./db');
+	totemDAO = require('./DAO/totemDAO'),
+	logDAO = require('./DAO/logDAO');
 
 /* Manage Server */
 app.listen(process.env.PORT || properties.SERVER_PORT);
 
-db.getNextTotemCode()
+totemDAO.getNextTotemCode()
 	.then((result) => {
 		console.log("MAX = " + result);
 	});
@@ -41,7 +42,7 @@ app.post('/totemAPI', (req, res) => {
 	let description_id = req.body.totemID,
 		situation = req.body.situation;
 
-	db.getTotemByDescriptionID(description_id)
+	totemDAO.getTotemByDescriptionID(description_id)
 		.then((totem) => {
 			totem.last_activity = new Date();
 
@@ -50,7 +51,7 @@ app.post('/totemAPI', (req, res) => {
 
 				console.log("Situações diferentes");
 
-				db.addActivity(totem.code, situation)
+				totemDAO.addActivity(totem.code, situation)
 					.catch((err) => {
 						console.error(err);
 					});
@@ -59,7 +60,7 @@ app.post('/totemAPI', (req, res) => {
 				console.log("Mesma Situação");
 			}
 
-			db.updateTotem(totem)
+			totemDAO.updateTotem(totem)
 				.then(() => {
 					console.log("Totem " + totem.description_id + " atualizado no banco");
 				});
@@ -75,7 +76,7 @@ app.post('/totemAPI', (req, res) => {
  * *************************************/
 
 app.get('/totems', (req, res) => {
-	db.getTotems()
+	totemDAO.getTotems()
 		.then((result) => {
 			res.json(result);
 		})
@@ -85,7 +86,7 @@ app.get('/totems', (req, res) => {
 });
 
 app.get('/totem/:code', (req, res) => {
-	db.getTotemByCode(req.param('code'))
+	totemDAO.getTotemByCode(req.param('code'))
 		.then((result) => {
 			if (result) {
 				res.json(result);
@@ -101,7 +102,7 @@ app.get('/totem/:code', (req, res) => {
 });
 
 app.get('/totems/find/:name', (req, res) => {
-	db.findTotemsByName(req.param('name'))
+	totemDAO.findTotemsByName(req.param('name'))
 		.then((result) => {
 			if (result) {
 				res.json(result);
@@ -116,6 +117,23 @@ app.get('/totems/find/:name', (req, res) => {
 		});
 });
 
+app.get('/totems/log/totemActivity', (req, res) => {
+	logDAO.getLastActivities()
+		.then((result) => {
+			if (result) {
+				res.json(result.rows);
+			}
+			else {
+				res.status(404);
+				res.send();
+			}
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+});
+
+
 app.post('/addTotem', (req, res) => {
 	res.set('Content-Type', 'text/plain');
 	let desc_id, lat, long, code;
@@ -125,13 +143,13 @@ app.post('/addTotem', (req, res) => {
 	lat = req.body.latitude;
 	long = req.body.longitude;
 
-	db.getNextTotemCode()
+	totemDAO.getNextTotemCode()
 		.then((result) => {
 			code = result + 1;
 
 			let totem = Totem.newTotem(code, desc_id, 0, lat, long);
 
-			db.addTotem(totem)
+			totemDAO.addTotem(totem)
 				.then(() => {
 					res.status(201);
 					res.send();

@@ -51,7 +51,7 @@ function createTotemList() {
 		totems.forEach((totem) => {
 			let totemDiv = document.createElement("div");
 
-			totemDiv.className = "totem-list-item";
+			totemDiv.classList.add("totem-list-item");
 			totemDiv.innerText = totem.description_id;
 
 			let datetime = new Date(totem.last_activity);
@@ -63,15 +63,18 @@ function createTotemList() {
 
 				if (totem.situation === "1") {
 					totemDiv.classList.remove("empty");
+					totemDiv.classList.remove("full");
 					totemDiv.classList.add("half");
 				}
 				else if (totem.situation === "2") {
 					totemDiv.classList.remove("empty");
 					totemDiv.classList.remove("half");
+					totemDiv.classList.add("full");
 				}
 				else {
 					totemDiv.classList.add("empty");
 					totemDiv.classList.remove("half");
+					totemDiv.classList.remove("full");
 				}
 			}
 			else {

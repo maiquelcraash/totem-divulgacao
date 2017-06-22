@@ -2,25 +2,11 @@
  * Created by maiquel on 24/03/17.
  */
 
-const pg = require('pg'),
-	properties = require('./properties'),
-	Totem = require('./entities/totem'),
-	Util = require('./util');
+const executeQuery = require('./connectionFactory'),
+	Totem = require('./../entities/totem'),
+	Util = require('./../util');
 
-/* #### Configure POSTGRES #### */
-const config = {
-	user: properties.DB_USER,
-	database: properties.DB_DATABASE,
-	password: properties.DB_PASSWORD,
-	host: properties.DB_HOST,
-	port: properties.DB_PORT,
-	max: 10,
-	idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-};
-
-const pool = new pg.Pool(config);
-
-let totemsManager = () => {
+let totemDAO = () => {
 
 	/**
 	 * Retorna todos os totems da base de dados
@@ -139,15 +125,4 @@ let totemsManager = () => {
 	}
 };
 
-
-function executeQuery(query) {
-	let res = null;
-	try {
-		res = pool.query(query);
-	} catch (err) {
-		console.error('Error running query: ', err);
-	}
-	return res;
-}
-
-module.exports = totemsManager();
+module.exports = totemDAO();

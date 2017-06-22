@@ -1,0 +1,11 @@
+LINE CHART
+
+- cada node é uma linha, x=dias, y=quantidade
+- grafico será sempre crescente
+- select retorna um sum() para cada node
+
+PIE CHART
+
+- possivel ver quais dias da semana tem maior saida
+- grafico dividido em dias da semana
+- select é sum() para cada dia da semana
