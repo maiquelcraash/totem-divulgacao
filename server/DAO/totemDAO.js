@@ -60,13 +60,24 @@ let totemDAO = () => {
 	};
 
 	let addTotem = (totem) => {
+		let last_activity;
+		if (!totem.last_activity) {
+			last_activity = 'null';
+		}
+		else {
+			last_activity = '' + totem.last_activity;
+		}
+
+
 		const query = 'insert into totems values(' +
 			totem.code + ', ' +
 			'\'' + totem.description_id + '\',' +
 			'\'' + totem.situation + '\',' +
 			'\'' + totem.latitude + '\',' +
 			'\'' + totem.longitude + '\',' +
-			'\'' + totem.last_activity + '\')';
+			last_activity + ')';
+
+
 
 		return executeQuery(query);
 	};

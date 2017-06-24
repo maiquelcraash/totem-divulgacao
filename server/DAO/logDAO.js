@@ -62,9 +62,31 @@ let logDAO = () => {
 			});
 	};
 
+	let getActivityByTotem = () => {
+
+		let query = ""
+			+ "select "
+			+ "   tot.description_id	as \"nome\", "
+			+ "   count(*)		as \"valor\" "
+			+ "from totems tot "
+			+ "inner join totem_log log on ( tot.code = log.ref_totem ) "
+			+ "where "
+			+ "   log.situation in ('0','1') "
+			+ "group by "
+			+ "   tot.description_id "
+			+ "order by "
+			+ "	\"valor\" desc";
+
+		return executeQuery(query)
+			.then((res) => {
+				return res;
+			});
+	};
+
 	return {
 		getLastActivities: getLastActivities,
-		getActivitiesDayOfWeek: getActivitiesDayOfWeek
+		getActivitiesDayOfWeek: getActivitiesDayOfWeek,
+		getActivityByTotem: getActivityByTotem
 	}
 };
 

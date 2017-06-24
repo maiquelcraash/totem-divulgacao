@@ -7,11 +7,12 @@ let url = window.location.href;							//get the server link
 let arr = url.split("/");
 let logHosts = {
 	activities: arr[0] + "//" + arr[2] + "/log/totemActivity",
-	dayOfWeek: arr[0] + "//" + arr[2] + "/log/totemActivityDayOfWeek"
+	dayOfWeek: arr[0] + "//" + arr[2] + "/log/totemActivityDayOfWeek",
+	byTotem: arr[0] + "//" + arr[2] + "/log/getActivityByTotem"
 };
 
 
-(function loadGraph1() {
+(function loadLineChart() {
 	"use strict";
 
 	let xmlHttp = new XMLHttpRequest();
@@ -49,7 +50,7 @@ let logHosts = {
 	xmlHttp.send();
 }());
 
-(function loadGraph2() {
+(function loadPizzaChart() {
 	"use strict";
 
 	let xmlHttp = new XMLHttpRequest();
@@ -71,6 +72,43 @@ let logHosts = {
 				columns: columns,
 				type: 'pie'
 			}
+		});
+	};
+	xmlHttp.send();
+}());
+
+(function loadBarChart() {
+	"use strict";
+
+	let xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("GET", logHosts.byTotem, true); // false for synchronous request
+
+	xmlHttp.onload = function (data) {
+		let rows = JSON.parse(xmlHttp.responseText);
+		let columns = [];
+
+		//parse do json em um formato do C3
+		rows.forEach((row) => {
+			columns.push([row.nome, row.valor]);
+		});
+
+		let barChart = c3.generate({
+			bindto: '#barChart',
+			data: {
+				// iris data from R
+				columns: columns,
+				type: 'bar',
+				labels: true
+			},
+			bar: {
+				width: {
+					ratio: 0.5 // this makes bar width 50% of length between ticks
+				}
+			},
+			axis: {
+				rotated: true
+			}
+
 		});
 	};
 	xmlHttp.send();

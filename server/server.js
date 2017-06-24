@@ -150,6 +150,23 @@ app.get('/log/totemActivityDayOfWeek', (req, res) => {
 });
 
 
+app.get('/log/getActivityByTotem', (req, res) => {
+	logDAO.getActivityByTotem()
+		.then((result) => {
+			if (result) {
+				res.json(result.rows);
+			}
+			else {
+				res.status(404);
+				res.send();
+			}
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+});
+
+
 app.post('/addTotem', (req, res) => {
 	res.set('Content-Type', 'text/plain');
 	let desc_id, lat, long, code;
@@ -163,7 +180,7 @@ app.post('/addTotem', (req, res) => {
 		.then((result) => {
 			code = result + 1;
 
-			let totem = Totem.newTotem(code, desc_id, 0, lat, long);
+			let totem = Totem.newTotem(code, desc_id, 0, lat, long, null);
 
 			totemDAO.addTotem(totem)
 				.then(() => {
