@@ -133,7 +133,8 @@ function initMap() {
 		let totems = JSON.parse(xmlHttp.responseText);
 		let map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 13,
-			center: {lat: parseFloat(totems[0].latitude), lng: parseFloat(totems[0].longitude)}
+			center: {lat: parseFloat(totems[0].latitude), lng: parseFloat(totems[0].longitude)},
+			scrollwheel: false
 		});
 
 		let infoList = [];

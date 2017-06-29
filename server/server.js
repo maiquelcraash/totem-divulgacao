@@ -126,7 +126,7 @@ app.get('/log/totemActivity', (req, res) => {
 					totems = [],
 					dates = [];
 
-				//sepera todos os totens
+				//sepera todos os totens e datas
 				result.rows.forEach((totem) => {
 					if (!totems.includes(totem.nome)) {
 						totems.push(totem.nome);
@@ -140,6 +140,7 @@ app.get('/log/totemActivity', (req, res) => {
 					}
 				});
 
+				//para cada totem, busca os totais
 				totems.forEach((totem) => {
 					let data = [totem];
 
