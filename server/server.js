@@ -149,7 +149,6 @@ app.get('/log/totemActivityDayOfWeek', (req, res) => {
 		});
 });
 
-
 app.get('/log/getActivityByTotem', (req, res) => {
 	logDAO.getActivityByTotem()
 		.then((result) => {
@@ -166,6 +165,21 @@ app.get('/log/getActivityByTotem', (req, res) => {
 		});
 });
 
+app.get('/log/getHeatmap', (req, res) => {
+	logDAO.getHeatmap()
+		.then((result) => {
+			if (result) {
+				res.json(result.rows);
+			}
+			else {
+				res.status(404);
+				res.send();
+			}
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+});
 
 app.post('/addTotem', (req, res) => {
 	res.set('Content-Type', 'text/plain');

@@ -83,10 +83,26 @@ let logDAO = () => {
 			});
 	};
 
+	let getHeatmap = () => {
+
+		let query = ""
+			+ "select "
+			+ "	tot.latitude	as \"latitude\", "
+			+ "	tot.longitude	as \"longitude\" "
+			+ "from totems tot "
+			+ "inner join totem_log log on ( tot.code = log.ref_totem );";
+
+		return executeQuery(query)
+			.then((res) => {
+				return res;
+			});
+	};
+
 	return {
 		getLastActivities: getLastActivities,
 		getActivitiesDayOfWeek: getActivitiesDayOfWeek,
-		getActivityByTotem: getActivityByTotem
+		getActivityByTotem: getActivityByTotem,
+		getHeatmap: getHeatmap
 	}
 };
 

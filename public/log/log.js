@@ -8,7 +8,8 @@ let arr = url.split("/");
 let logHosts = {
 	activities: arr[0] + "//" + arr[2] + "/log/totemActivity",
 	dayOfWeek: arr[0] + "//" + arr[2] + "/log/totemActivityDayOfWeek",
-	byTotem: arr[0] + "//" + arr[2] + "/log/getActivityByTotem"
+	byTotem: arr[0] + "//" + arr[2] + "/log/getActivityByTotem",
+	heatmap: arr[0] + "//" + arr[2] + "/log/getHeatmap",
 };
 
 
@@ -114,6 +115,36 @@ let logHosts = {
 	xmlHttp.send();
 }());
 
+function initMap() {
+
+	let map, heatmap;
+
+	let xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("GET", logHosts.heatmap, true); // false for synchronous request
+
+	xmlHttp.onload = function (data) {
+		let rows = JSON.parse(xmlHttp.responseText);
+		let mapDiv = document.getElementById('heatmap');
+		mapDiv.classList.add("map");
+
+		let points = rows.map((row) => {
+			return new google.maps.LatLng(row.latitude, row.longitude)
+		});
+
+		map = new google.maps.Map(mapDiv, {
+			zoom: 13,
+			center: {lat: -29.4494285, lng: -51.9688635}
+		});
+
+		heatmap = new google.maps.visualization.HeatmapLayer({
+			data: points,
+			map: map
+		});
+
+		heatmap.set('radius', 80);
+	};
+	xmlHttp.send();
+}
 
 
 
