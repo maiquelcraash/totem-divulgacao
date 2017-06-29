@@ -55,7 +55,6 @@ section#graphs .graph-container h4 {
   text-align: center;
   margin-bottom: 40px;
 }
-
 section#graphs .graph-container .map {
-    height: 600px;
+    height: 500px;
 }

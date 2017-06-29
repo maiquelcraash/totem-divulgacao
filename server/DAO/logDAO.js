@@ -15,22 +15,28 @@ let logDAO = () => {
 	 */
 	let getLastActivities = () => {
 
-		let query = " select\n" +
-			"\t\tlog.date_time::date as \"data\",\n" +
-			"\t\tcount (*) as \"quantidade\"\n" +
-			" from \n" +
-			" \t\ttotem_log log, \n" +
-			" \t\ttotems tot\n" +
-			" where \n" +
-			" \t\tlog.situation in (\'0\',\'1\')\n" +
-			" and\n" +
-			" \t\tlog.ref_totem = tot.code\n" +
-			" group by\n" +
-			" \t\tlog.date_time::date\n" +
-			" order by\n" +
-			" \t\tlog.date_time::date desc\n" +
-			" limit\n" +
-			" \t\t7;";
+		let query = ""
+			+ "select "
+			+ "    nome, "
+			+ "    data, "
+			+ "    total "
+			+ "from "
+			+ "( "
+			+ "select tot.description_id as \"nome\" , now() - INTERVAL'1 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'1 day' group by 1, 2 "
+			+ "union "
+			+ "select tot.description_id as \"nome\" , now() - INTERVAL'2 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'2 day' group by 1, 2 "
+			+ "union "
+			+ "select tot.description_id as \"nome\" , now() - INTERVAL'3 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'3 day' group by 1, 2 "
+			+ "union "
+			+ "select tot.description_id as \"nome\" , now() - INTERVAL'4 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'4 day' group by 1, 2 "
+			+ "union "
+			+ "select tot.description_id as \"nome\" , now() - INTERVAL'5 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'5 day' group by 1, 2 "
+			+ "union "
+			+ "select tot.description_id as \"nome\" , now() - INTERVAL'6 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'6 day' group by 1, 2 "
+			+ "union "
+			+ "select tot.description_id as \"nome\" , now() - INTERVAL'7 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'7 day' group by 1, 2 "
+			+ ") tabela "
+			+ "order by data, nome;";
 
 		return executeQuery(query)
 			.then((res) => {

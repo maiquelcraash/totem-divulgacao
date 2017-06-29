@@ -20,23 +20,13 @@ let logHosts = {
 	xmlHttp.open("GET", logHosts.activities, true); // false for synchronous request
 
 	xmlHttp.onload = function (data) {
-		let rows = JSON.parse(xmlHttp.responseText);
-		let column = ["Quantidade"];
-		let x = ["x"];
-
-		//parse do json em um formato do C3
-		rows.forEach((row) => {
-			let data = new Date(row.data);
-			let date_string = data.getDate() + "/" + (data.getMonth() + 1) + "/" + data.getFullYear();
-			column.push(row.quantidade);
-			x.push(data);
-		});
+		let dados = JSON.parse(xmlHttp.responseText);
 
 		let lineChart = c3.generate({
 			bindto: '#lineChart',
 			data: {
-				x: "x",
-				columns: [x, column]
+				x: "Data",
+				columns: dados
 			},
 			axis: {
 				x: {
@@ -133,7 +123,8 @@ function initMap() {
 
 		map = new google.maps.Map(mapDiv, {
 			zoom: 13,
-			center: {lat: -29.4494285, lng: -51.9688635}
+			center: {lat: -29.4494285, lng: -51.9688635},
+			scrollwheel: false
 		});
 
 		heatmap = new google.maps.visualization.HeatmapLayer({

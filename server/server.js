@@ -121,7 +121,39 @@ app.get('/log/totemActivity', (req, res) => {
 	logDAO.getLastActivities()
 		.then((result) => {
 			if (result) {
-				res.json(result.rows);
+
+				let json = [],
+					totems = [],
+					dates = [];
+
+				//sepera todos os totens
+				result.rows.forEach((totem) => {
+					if (!totems.includes(totem.nome)) {
+						totems.push(totem.nome);
+					}
+
+					let date = new Date(totem.data);
+					let date_string = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+
+					if (!dates.includes(date_string)) {
+						dates.push(date_string)
+					}
+				});
+
+				totems.forEach((totem) => {
+					let data = [totem];
+
+					result.rows.forEach((row) => {
+						if (row.nome === totem) {
+							data.push(row.total);
+						}
+					});
+
+					json.push(data);
+				});
+				dates.unshift("Data");
+				json.unshift(dates);
+				res.json(json);
 			}
 			else {
 				res.status(404);
