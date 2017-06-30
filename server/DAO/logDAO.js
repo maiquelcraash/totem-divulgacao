@@ -22,7 +22,7 @@ let logDAO = () => {
 			+ "    total "
 			+ "from "
 			+ "( "
-			+ "select tot.description_id as \"nome\" , now() - INTERVAL'0 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'1 day' group by 1, 2 "
+			+ "select tot.description_id as \"nome\" , now() - INTERVAL'0 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time >= now() - INTERVAL'1 day' group by 1, 2 "
 			+ "union "
 			+ "select tot.description_id as \"nome\" , now() - INTERVAL'1 day' as \"data\", count( * ) as \"total\" from totem_log log inner join totems tot on ( log.ref_totem = tot.code ) where log.situation in ( '0','1' ) and log.date_time <= now() - INTERVAL'2 day' group by 1, 2 "
 			+ "union "
