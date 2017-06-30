@@ -40,6 +40,7 @@ function init() {
 		//alert('Trocou');
 		totemList.innerHTML = "";
 		createTotemList();
+		initMap();
 	});
 }
 
