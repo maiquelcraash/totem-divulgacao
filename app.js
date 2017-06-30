@@ -6,7 +6,11 @@
 	"use strict";
 
 	let express = require('express'),
-		app = express();
+		app = express(),
+		http = require('http').Server(app),								//obtem o handler http padrão do node, mas passa o express para incorporar
+		io = require("socket.io")(http);								//inicia o Socket.io (WebSocket) passando o handler de requisições do node, já incorporado com o express
+
+	app.set('io', io);													//encapsula o socket.io dentro do objeto express para que possa ser utilizado em todos os locais
 
 	//Arquivos estáticos acessíveis a todos
 	app.use(express.static(__dirname + '/public'));

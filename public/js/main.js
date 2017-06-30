@@ -18,6 +18,11 @@ colorMap.set("1", "#ffea22");
 colorMap.set("2", "#4bb04e");
 colorMap.set("3", "#bcbcbc");
 
+let updateManager = setTimeout(() => {
+	totemList.innerHTML = "";
+	createTotemList();
+	updateTotemList();
+}, 60000);
 
 init();
 
@@ -29,18 +34,25 @@ function init() {
 	/* Create the totem List */
 	createTotemList();
 
+	let socket = io();                                          //instancia o WebSocket
 
+	socket.on('newStatus', (data) => {                          //configura um listener para um evento que o servidor irá disparar
+		//alert('Trocou');
+		totemList.innerHTML = "";
+		createTotemList();
+	});
 }
 
 /**
  *    Creates the totem list
  * */
 function createTotemList() {
+	clearTimeout(updateManager);
 
-	setTimeout(() => {
+	updateManager = setTimeout(() => {
 		totemList.innerHTML = "";
 		createTotemList();
-	}, 5000);
+	}, 30000);
 
 	let xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET", hosts.totemsHost, true); // false for synchronous request
@@ -120,8 +132,6 @@ function addTotem(e) {
 	};
 
 	xmlHttp.send(JSON.stringify(fields));
-
-
 }
 
 function initMap() {
@@ -145,7 +155,7 @@ function initMap() {
 			let now = new Date();
 			let lapsed = now.getTime() - datetime.getTime();
 
-			if(lapsed && lapsed > 30000) {
+			if (lapsed && lapsed > 30000) {
 				totem.situation = "3";
 			}
 

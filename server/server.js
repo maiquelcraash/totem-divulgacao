@@ -8,11 +8,12 @@ const app = require('./../app'),
 	logDAO = require('./DAO/logDAO');
 
 /* Manage Server */
-app.listen(process.env.PORT || properties.SERVER_PORT);
+let server = app.listen(process.env.PORT || properties.SERVER_PORT);
+let io = require('socket.io').listen(server);
 
 totemDAO.getNextTotemCode()
 	.then((result) => {
-		console.log("MAX = " + result);
+		console.log("\nServidor rodando e conectado ao banco...\n");
 	});
 
 app.get('/', (req, res) => {
@@ -35,17 +36,18 @@ app.all('*', (req, res, next) => {
 app.get('/totemAPI', (req, res) => {
 	console.log("\nTotem Attemp: IP:" + req.connection.remoteAddress);
 	res.write("Conected to server...");
+	res.send();
 });
 
 //Update totem Status on Server
 app.post('/totemAPI', (req, res) => {
 	let description_id = req.body.totemID,
 		situation = req.body.situation;
+	console.log("\n'" + description_id + "' tentado conectar");
 
 	totemDAO.getTotemByDescriptionID(description_id)
 		.then((totem) => {
-			totem.last_activity = new Date();
-
+			console.log("Conectato... Comparando Situações");
 			if (situation !== totem.situation) {
 				totem.situation = situation;
 
@@ -55,14 +57,22 @@ app.post('/totemAPI', (req, res) => {
 					.catch((err) => {
 						console.error(err);
 					});
+
+				io.emit('newStatus', totem);
 			}
 			else {
+				let diff = Math.abs(new Date() - totem.last_activity);
+
+				if (diff > 60000) {
+					io.emit('newStatus', totem);
+				}
 				console.log("Mesma Situação");
 			}
 
+			totem.last_activity = new Date();
 			totemDAO.updateTotem(totem)
 				.then(() => {
-					console.log("Totem " + totem.description_id + " atualizado no banco");
+					console.log("Totem " + totem.description_id + " atualizado no banco\n");
 				});
 
 			res.send();

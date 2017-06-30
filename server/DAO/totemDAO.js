@@ -94,8 +94,6 @@ let totemDAO = () => {
 			'last_activity = ' + '\'' + timestamp + '\'' +
 			' where code = ' + totem.code;
 
-		console.log(query);
-
 		return executeQuery(query);
 	};
 
