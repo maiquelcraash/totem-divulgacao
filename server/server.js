@@ -63,7 +63,7 @@ app.post('/totemAPI', (req, res) => {
 			else {
 				let diff = Math.abs(new Date() - totem.last_activity);
 
-				if (diff > 60000) {
+				if (diff > 30000) {
 					io.emit('newStatus', totem);
 				}
 				console.log("Mesma Situação");
